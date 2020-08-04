@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\PackAccount;
 use App\Entity\User;
 use App\Form\PasswordEditingFormType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -20,6 +21,14 @@ class ProfileController extends AbstractController
     public function index()
     {
         $user = $this->getUser()->getUsername();
+
+        $packs = $this->getDoctrine()->getRepository(PackAccount::class)->findBy([
+            'UserId' => $this->getUser()
+            ]);
+
+        dump($packs);
+
+
 
         return $this->render('profile/index.html.twig', [
             'user' => $user,
@@ -70,7 +79,6 @@ class ProfileController extends AbstractController
             }
 
         }
-
 
         return $this->render('manage/profile.html.twig', [
             'password_form' => $password_form->createView()

@@ -47,6 +47,12 @@ class PackAccount
      */
     private $AccountLevel;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="packAccounts")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $UserId;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -120,6 +126,18 @@ class PackAccount
     public function setAccountLevel(int $AccountLevel): self
     {
         $this->AccountLevel = $AccountLevel;
+
+        return $this;
+    }
+
+    public function getUserId(): ?User
+    {
+        return $this->UserId;
+    }
+
+    public function setUserId(?User $UserId): self
+    {
+        $this->UserId = $UserId;
 
         return $this;
     }

@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -35,6 +37,16 @@ class User implements UserInterface
      * @ORM\Column(type="string")
      */
     private $password;
+
+    /**
+     * @ORM\OneToMany(targetEntity=PackAccount::class, mappedBy="UserId", orphanRemoval=true)
+     */
+    private $packAccounts;
+
+    public function __construct()
+    {
+        $this->packAccounts = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -107,5 +119,36 @@ class User implements UserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    /**
+     * @return Collection|PackAccount[]
+     */
+    public function getPackAccounts(): Collection
+    {
+        return $this->packAccounts;
+    }
+
+    public function addPackAccount(PackAccount $packAccount): self
+    {
+        if (!$this->packAccounts->contains($packAccount)) {
+            $this->packAccounts[] = $packAccount;
+            $packAccount->setUserId($this);
+        }
+
+        return $this;
+    }
+
+    public function removePackAccount(PackAccount $packAccount): self
+    {
+        if ($this->packAccounts->contains($packAccount)) {
+            $this->packAccounts->removeElement($packAccount);
+            // set the owning side to null (unless already changed)
+            if ($packAccount->getUserId() === $this) {
+                $packAccount->setUserId(null);
+            }
+        }
+
+        return $this;
     }
 }

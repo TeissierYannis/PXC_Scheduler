@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Manage PMC Accounts{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+
+        <br>
+
+        <h1>Manage PMC Accounts</h1>
+
+        <br>
+
+        {% for message in app.flashes('notice') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+
+        {% for message in app.flashes('error') %}
+            <div class="alert alert-danger">
+                {{ message }}
+            </div>
+        {% endfor %}
+
+        <br>
+
+        {{ form_start(accounts_form) }}
+
+            {{ form_row(accounts_form.AccountUsername) }}
+            {{ form_row(accounts_form.AccountLogin) }}
+            {{ form_row(accounts_form.AccountPassword) }}
+            {{ form_row(accounts_form.Pack_Quantity) }}
+            {{ form_row(accounts_form.AccountLevel) }}
+
+
+            <div class="text-center">
+
+                <button class="btn btn-lg btn-primary" type="submit">
+                    Add this account
+                </button>
+
+            </div>
+
+        {{ form_end(accounts_form) }}
+
+    </div>
+
+{% endblock %}
