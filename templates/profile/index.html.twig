@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profile of {{ user }}{% endblock %}
+
+{% block body %}
+    <div class="container">
+
+        <br>
+
+        <h1>{{ user | capitalize }}</h1>
+
+        <br><br>
+
+        <table class="table">
+
+            <thead>
+
+                <tr>
+                    <th>Nom du compte</th>
+                    <th>Nombre de pack</th>
+                    <th>Niveau</th>
+                </tr>
+
+            </thead>
+            <tbody>
+
+            <tr>
+                <td>Crabaldo</td>
+                <td>3</td>
+                <td>49</td>
+            </tr>
+            <tr>
+                <td>Elfey</td>
+                <td>2</td>
+                <td>41</td>
+            </tr>
+            <tr>
+                <td>VolrodDupig</td>
+                <td>2</td>
+                <td>27</td>
+            </tr>
+
+            </tbody>
+
+        </table>
+    </div>
+{% endblock %}
