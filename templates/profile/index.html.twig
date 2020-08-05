@@ -19,26 +19,22 @@
                     <th>Nom du compte</th>
                     <th>Nombre de pack</th>
                     <th>Niveau</th>
+                    <th>Actions</th>
                 </tr>
 
             </thead>
             <tbody>
 
-            <tr>
-                <td>Crabaldo</td>
-                <td>3</td>
-                <td>49</td>
-            </tr>
-            <tr>
-                <td>Elfey</td>
-                <td>2</td>
-                <td>41</td>
-            </tr>
-            <tr>
-                <td>VolrodDupig</td>
-                <td>2</td>
-                <td>27</td>
-            </tr>
+                {% for pack in packs %}
+
+                    <tr>
+                        <td>{{ pack.AccountUsername }}</td>
+                        <td>{{ pack.PackQuantity }}</td>
+                        <td>{{ pack.AccountLevel }}</td>
+                        <td><a class="btn" href="/manage/delete/account/{{ pack.id }}"><i class="fas fa-trash"></i></a></td>
+                    </tr>
+
+                {% endfor %}
 
             </tbody>
 

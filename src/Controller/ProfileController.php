@@ -28,10 +28,9 @@ class ProfileController extends AbstractController
 
         dump($packs);
 
-
-
         return $this->render('profile/index.html.twig', [
             'user' => $user,
+            'packs' => $packs
         ]);
     }
 

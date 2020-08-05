@@ -50,4 +50,20 @@ class AccountsController extends AbstractController
             'accounts_form' => $accounts_form->createView()
         ]);
     }
+
+    /**
+     * @Route("manage/delete/account/{id}", name="logged_manage_delete_account")
+     */
+    public function deleteAccount(int $id){
+
+        $repository = $this->getDoctrine()->getRepository(PackAccount::class);
+        $manager = $this->getDoctrine()->getManager();
+
+        $pack = $repository->find($id);
+
+        $manager->remove($pack);
+        $manager->flush();
+
+        return $this->redirectToRoute("logged_profile");
+    }
 }
