@@ -18,43 +18,57 @@
 
         <h1>{{ response['current_day'] }} {{ response['months'][month - 1] }} {{ year }}</h1>
 
-        {% for event in events %}
-
-            {{ event.scheduler_datetime }}
-
-        {% endfor %}
-
         <table class="table">
             <tbody>
 
-                <tr>
+            <tr>
 
-                {% for i in 1..response['daysInMonths']  %}
+                {% for i in 1..response['daysInMonths'] %}
 
-                    {% if i is divisible by(7) and i != 1 %}
+                {% if i is divisible by(7) and i != 1 %}
 
-                        <td>
-                            {% if i <= 7 %}
-                                <span class="font-weight-bold">{{ response['days'][i - 1] }}</span>
-                                <br>
-                            {% endif %}
-                            <a href="">
-                                <span class="{% if i == response['current_day'] %}__current_day{% else %}__days_number{% endif %}">{{ i }}</span>
-                            </a>
-                        </td>
-                        </tr>
-                        <tr>
-                    {% else %}
-                        <td>
-                            {% if i <= 7 %}
-                                <span class="font-weight-bold">{{ response['days'][i - 1] }}</span>
-                                <br>
-                            {% endif %}
-                            <a href="">
-                                <span class="{% if i == response['current_day'] %}__current_day{% else %}__days_number{% endif %}">{{ i }}</span>
-                            </a>
-                        </td>
+                <td>
+                    {% if i <= 7 %}
+                        <span class="font-weight-bold">{{ response['days'][i - 1] }}</span>
+                        <br>
                     {% endif %}
+                    <a href="">
+                        <span class="{% if i == response['current_day'] %}__current_day{% else %}__days_number{% endif %}">{{ i }}</span>
+                    </a>
+                    <br>
+                    {% for event in events %}
+
+                        {% if i == (event.schedulerDatetime | date("d")) %}
+                            <small class="text-muted">
+                                {{ event.account.AccountUsername }} {{ event.schedulerDateTime | date("h:m") }}
+                            </small>
+                            <br>
+                        {% endif %}
+                    {% endfor %}
+                </td>
+            </tr>
+            <tr>
+                {% else %}
+                    <td>
+                        {% if i <= 7 %}
+                            <span class="font-weight-bold">{{ response['days'][i - 1] }}</span>
+                            <br>
+                        {% endif %}
+                        <a href="">
+                            <span class="{% if i == response['current_day'] %}__current_day{% else %}__days_number{% endif %}">{{ i }}</span>
+                        </a>
+                        <br>
+                        {% for event in events %}
+
+                            {% if i == (event.schedulerDatetime | date("d")) %}
+                                <small class="text-muted">
+                                    {{ event.account.AccountUsername }} {{ event.schedulerDateTime | date("h:m") }}
+                                </small>
+                                <br>
+                            {% endif %}
+                        {% endfor %}
+                    </td>
+                {% endif %}
 
                 {% endfor %}
 
@@ -62,5 +76,9 @@
             </tbody>
         </table>
     </div>
+
+    <button type="button" onclick="location.href='{{ path('logged_calendar_add_event') }}'"
+            class="btn btn-info btn-circle btn-xl __new_event"><i class="fa fa-check"></i>
+    </button>
 
 {% endblock %}

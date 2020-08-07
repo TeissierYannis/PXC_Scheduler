@@ -54,6 +54,8 @@ class CalendarController extends AbstractController
 
     /**
      * @Route("/user/calendar/event/add", name="logged_calendar_add_event")
+     * @param Request $request
+     * @return Response
      */
     public function addEvent(Request $request){
 
@@ -71,6 +73,8 @@ class CalendarController extends AbstractController
 
             $manager->persist($event);
             $manager->flush();
+
+            return $this->redirectToRoute('logged_no_params_calendar');
         }
 
         return $this->render('calendar/addEvent.html.twig', [
