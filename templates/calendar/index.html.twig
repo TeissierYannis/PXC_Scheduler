@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}PMC Calendar{% endblock %}
+
+{% block stylesheets %}
+
+    <link rel="stylesheet" href="{{ asset('css/calendar.css') }}">
+
+{% endblock %}
+
+
+{% block body %}
+
+
+    <div class="container">
+
+        <br>
+
+        <h1>{{ response['current_day'] }} {{ response['months'][month - 1] }} {{ year }}</h1>
+
+        {% for event in events %}
+
+            {{ event.scheduler_datetime }}
+
+        {% endfor %}
+
+        <table class="table">
+            <tbody>
+
+                <tr>
+
+                {% for i in 1..response['daysInMonths']  %}
+
+                    {% if i is divisible by(7) and i != 1 %}
+
+                        <td>
+                            {% if i <= 7 %}
+                                <span class="font-weight-bold">{{ response['days'][i - 1] }}</span>
+                                <br>
+                            {% endif %}
+                            <a href="">
+                                <span class="{% if i == response['current_day'] %}__current_day{% else %}__days_number{% endif %}">{{ i }}</span>
+                            </a>
+                        </td>
+                        </tr>
+                        <tr>
+                    {% else %}
+                        <td>
+                            {% if i <= 7 %}
+                                <span class="font-weight-bold">{{ response['days'][i - 1] }}</span>
+                                <br>
+                            {% endif %}
+                            <a href="">
+                                <span class="{% if i == response['current_day'] %}__current_day{% else %}__days_number{% endif %}">{{ i }}</span>
+                            </a>
+                        </td>
+                    {% endif %}
+
+                {% endfor %}
+
+
+            </tbody>
+        </table>
+    </div>
+
+{% endblock %}

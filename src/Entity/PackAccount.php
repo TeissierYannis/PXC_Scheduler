@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\PackAccountRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -52,6 +54,17 @@ class PackAccount
      * @ORM\JoinColumn(nullable=false)
      */
     private $UserId;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Event::class, mappedBy="account")
+     */
+    private $events;
+
+    public function __construct()
+    {
+        $this->account_id = new ArrayCollection();
+        $this->events = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -138,6 +151,37 @@ class PackAccount
     public function setUserId(?User $UserId): self
     {
         $this->UserId = $UserId;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Event[]
+     */
+    public function getEvents(): Collection
+    {
+        return $this->events;
+    }
+
+    public function addEvent(Event $event): self
+    {
+        if (!$this->events->contains($event)) {
+            $this->events[] = $event;
+            $event->setAccount($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEvent(Event $event): self
+    {
+        if ($this->events->contains($event)) {
+            $this->events->removeElement($event);
+            // set the owning side to null (unless already changed)
+            if ($event->getAccount() === $this) {
+                $event->setAccount(null);
+            }
+        }
 
         return $this;
     }

@@ -1,0 +1,15 @@
+table > tbody > tr > td{
+    border: 1px solid #d6d6d6;
+    width: 10%;
+    height: 120px;
+}
+
+.__days_number {
+    color: #969696;
+}
+
+.__current_day {
+    color: #605e5e;
+    font-weight: bold;
+}
+
