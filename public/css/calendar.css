@@ -39,3 +39,11 @@ table > tbody > tr > td{
     top: 40%;
     left: 85%;
 }
+
+/** Previous - Next **/
+
+.__previous_arrow, .__next_arrow {
+
+    font-size: 1.5em;
+
+}

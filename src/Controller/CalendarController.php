@@ -6,6 +6,7 @@ use App\Calendar\Calendar;
 use App\Entity\Event;
 use App\Form\EventAddType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -21,6 +22,45 @@ class CalendarController extends AbstractController
     }
 
     /**
+     * @Route("/user/calendar/previous/{slug}", name="logged_previous_calendar")
+     * @param string $slug
+     * @return RedirectResponse
+     */
+    public function previousCalendar(string $slug){
+        $month = intval(explode('-', $slug)[0]);
+        $year = intval(explode('-', $slug)[1]);
+
+        if($month == 1){
+            $month = 12;
+            $year -= 1;
+        }else{
+            $month -= 1;
+        }
+
+        return $this->redirectToRoute('logged_calendar', ['slug' => $month . '-' . $year]);
+
+    }
+
+    /**
+     * @Route("/user/calendar/next/{slug}", name="logged_next_calendar")
+     * @param string $slug
+     * @return RedirectResponse
+     */
+    public function nextCalendar(string $slug){
+        $month = intval(explode('-', $slug)[0]);
+        $year = intval(explode('-', $slug)[1]);
+
+        if($month == 12){
+            $month = 1;
+            $year += 1;
+        }else{
+            $month += 1;
+        }
+
+        return $this->redirectToRoute('logged_calendar', ['slug' => $month . '-' . $year]);
+    }
+
+    /**
      * @Route("/user/calendar/{slug}", name="logged_calendar")
      * @param string $slug
      * @return Response
@@ -32,15 +72,20 @@ class CalendarController extends AbstractController
 
         $events = $this->getDoctrine()->getRepository(Event::class)->findAll();
 
-        $month = intval(explode('-', $slug)[0]);
-        $year = intval(explode('-', $slug)[1]);
+        $month = @intval(explode('-', $slug)[0]);
+        $year = @intval(explode('-', $slug)[1]);
 
-        if(!is_int($month) || $month < 1){
+        if(!str_contains($slug, '-')){
             $month = date('m', time());
-        }
-
-        if(!is_int($year) || $year < 1){
             $year = date('Y', time());
+        }else{
+            if(!is_int($month) || $month < 1 || $month > 12){
+                $month = date('m', time());
+            }
+
+            if(!is_int($year) || $year < 1){
+                $year = date('Y', time());
+            }
         }
 
 

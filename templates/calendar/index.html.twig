@@ -16,7 +16,7 @@
 
         <br>
 
-        <h1>{{ response['current_day'] }} {{ response['months'][month - 1] }} {{ year }}</h1>
+        <h1>{% if (date() | date('m')) == month %}{{ response['current_day'] }}{% endif %} {{ response['months'][month - 1] }} {{ year }}</h1>
 
         <table class="table">
             <tbody>
@@ -77,8 +77,11 @@
         </table>
     </div>
 
-    <button type="button" onclick="location.href='{{ path('logged_calendar_add_event') }}'"
+    <button type="button" onclick="location.href='{{ path('logged_calendar_add_event')}}'"
             class="btn btn-info btn-circle btn-xl __new_event"><i class="fa fa-check"></i>
     </button>
+
+    <button type="button" onclick="location.href='{{ path('logged_previous_calendar', {'slug': month ~ '-' ~ year}) }}'" class="btn btn-info btn-circle btn-xl" ><i class="fas fa-arrow-left __previous_arrow"></i></button>
+    <button type="button" onclick="location.href='{{ path('logged_next_calendar', {'slug': month ~ '-' ~ year}) }}'" class="btn btn-info btn-circle btn-xl" ><i class="fas fa-arrow-right __next_arrow"></i></button>
 
 {% endblock %}
