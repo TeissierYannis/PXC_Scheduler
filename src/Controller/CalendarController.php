@@ -4,7 +4,9 @@ namespace App\Controller;
 
 use App\Calendar\Calendar;
 use App\Entity\Event;
+use App\Entity\PackAccount;
 use App\Form\EventAddType;
+use App\Repository\PackAccountRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -88,12 +90,21 @@ class CalendarController extends AbstractController
             }
         }
 
+        $user_events = [];
+
+        $i = 0;
+        foreach ($events as $event){
+            if($event->getAccount()->getUserId() == $this->getUser()){
+                $user_events[$i] = $event;
+                $i++;
+            }
+        }
 
         return $this->render('calendar/index.html.twig', [
             'response' => $calendar->createView($month, $year),
             'month' => $month,
             'year' => $year,
-            'events' => $events
+            'events' => $user_events
         ]);
     }
 
@@ -104,7 +115,14 @@ class CalendarController extends AbstractController
      */
     public function addEvent(Request $request){
 
-        $form = $this->createForm(EventAddType::class);
+        $r = $this->getDoctrine()->getRepository(PackAccount::class);
+
+        $current_user = $this->getUser();
+
+        dump($r->findBy(['UserId' => $current_user]));
+
+
+        $form = $this->createForm(EventAddType::class, null, ['user' => $this->getUser()]);
         $form->handleRequest($request);
 
         $event = new Event();
