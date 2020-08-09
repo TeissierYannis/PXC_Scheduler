@@ -2,16 +2,24 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @UniqueEntity(fields={"username"}, message="There is already an account with this username")
+ *
+ * @ApiResource(
+ *     collectionOperations={"get"={"normalization_context"={"groups"="users:list"}}},
+ *     itemOperations={"get"={"normalization_context"={"groups"="users:item"}}},
+ *     paginationEnabled=false
+ * )
  */
 class User implements UserInterface
 {
@@ -19,27 +27,37 @@ class User implements UserInterface
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     *
+     * @Groups({"users:list", "users:item"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
+     *
+     * @Groups({"users:list", "users:item"})
      */
     private $username;
 
     /**
      * @ORM\Column(type="json")
+     *
+     * @Groups({"users:list", "users:item"})
      */
     private $roles = [];
 
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
+     *
+     * @Groups({"users:list", "users:item"})
      */
     private $password;
 
     /**
      * @ORM\OneToMany(targetEntity=PackAccount::class, mappedBy="UserId", orphanRemoval=true)
+     *
+     * @Groups({"users:list", "users:item"})
      */
     private $packAccounts;
 

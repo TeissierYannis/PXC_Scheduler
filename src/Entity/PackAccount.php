@@ -2,13 +2,21 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\PackAccountRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=PackAccountRepository::class)
+ *
+ * @ApiResource(
+ *     collectionOperations={"get"={"normalization_context"={"groups"="packAccount:list"}}},
+ *     itemOperations={"get"={"normalization_context"={"groups"="packAccount:item"}}},
+ *     paginationEnabled=false
+ * )
  */
 class PackAccount
 {
@@ -16,46 +24,56 @@ class PackAccount
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     *
+     * @Groups({"packAccount:list", "packAccount:item"})
      */
     private $id;
 
     /**
+     * @Groups({"packAccount:list", "packAccount:item"})
      * @ORM\Column(type="string", length=255)
      */
     private $AccountUsername;
 
     /**
+     * @Groups({"packAccount:list", "packAccount:item"})
      * @ORM\Column(type="string", length=255)
      */
     private $AccountLogin;
 
     /**
+     * @Groups({"packAccount:list", "packAccount:item"})
      * @ORM\Column(type="string", length=255)
      */
     private $AccountPassword;
 
     /**
+     * @Groups({"packAccount:list", "packAccount:item"})
      * @ORM\Column(type="integer")
      */
     private $Pack_Quantity;
 
     /**
+     * @Groups({"packAccount:list", "packAccount:item"})
      * @ORM\Column(type="json", nullable=true)
      */
     private $Packs_name = [];
 
     /**
+     * @Groups({"packAccount:list", "packAccount:item"})
      * @ORM\Column(type="integer")
      */
     private $AccountLevel;
 
     /**
+     * @Groups({"packAccount:list", "packAccount:item"})
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="packAccounts")
      * @ORM\JoinColumn(nullable=false)
      */
     private $UserId;
 
     /**
+     * @Groups({"packAccount:list", "packAccount:item"})
      * @ORM\OneToMany(targetEntity=Event::class, mappedBy="account")
      */
     private $events;

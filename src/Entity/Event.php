@@ -2,11 +2,18 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\EventRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
- * @ORM\Entity(repositoryClass=EventRepository::class)
+ * @ORM\Entity(repositoryClass=EventRepository::class)*
+ * @ApiResource(
+ *     collectionOperations={"get"={"normalization_context"={"groups"="events:list"}}},
+ *     itemOperations={"get"={"normalization_context"={"groups"="events:item"}}},
+ *     paginationEnabled=false
+ * )
  */
 class Event
 {
@@ -14,17 +21,23 @@ class Event
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     *
+     * @Groups({"events:list", "events:item"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="datetime")
+     *
+     * @Groups({"events:list", "events:item"})
      */
     private $scheduler_datetime;
 
     /**
      * @ORM\ManyToOne(targetEntity=PackAccount::class, inversedBy="events")
      * @ORM\JoinColumn(nullable=false)
+     *
+     * @Groups({"events:list", "events:item"})
      */
     private $account;
 
