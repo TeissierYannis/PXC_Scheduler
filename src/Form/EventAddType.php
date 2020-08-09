@@ -35,8 +35,6 @@ class EventAddType extends AbstractType
                 'widget' => 'single_text'
             ])
         ;
-
-        dump($options['user']);
     }
 
     public function configureOptions(OptionsResolver $resolver)

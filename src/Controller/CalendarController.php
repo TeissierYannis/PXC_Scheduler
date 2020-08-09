@@ -115,13 +115,6 @@ class CalendarController extends AbstractController
      */
     public function addEvent(Request $request){
 
-        $r = $this->getDoctrine()->getRepository(PackAccount::class);
-
-        $current_user = $this->getUser();
-
-        dump($r->findBy(['UserId' => $current_user]));
-
-
         $form = $this->createForm(EventAddType::class, null, ['user' => $this->getUser()]);
         $form->handleRequest($request);
 
