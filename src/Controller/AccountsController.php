@@ -64,10 +64,11 @@ class AccountsController extends AbstractController
         $eventRepo = $doctrine->getRepository(Event::class);
 
         $packAccount = $packAccountRepo->find($id);
-        $events = $eventRepo->findBy(['accoubt' => $packAccount->getUserId()]);
+        $events = $eventRepo->findBy(['account' => $packAccount]);
 
         foreach ($events as $event){
             $manager->remove($event);
+            $manager->flush();
         }
 
         $manager->remove($packAccount);
