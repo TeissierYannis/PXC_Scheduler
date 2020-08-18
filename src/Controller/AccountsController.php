@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Event;
 use App\Entity\PackAccount;
 use App\Form\AccountAddType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -56,12 +57,20 @@ class AccountsController extends AbstractController
      */
     public function deleteAccount(int $id){
 
-        $repository = $this->getDoctrine()->getRepository(PackAccount::class);
-        $manager = $this->getDoctrine()->getManager();
+        $doctrine = $this->getDoctrine();
+        $manager = $doctrine->getManager();
 
-        $pack = $repository->find($id);
+        $packAccountRepo = $doctrine->getRepository(PackAccount::class);
+        $eventRepo = $doctrine->getRepository(Event::class);
 
-        $manager->remove($pack);
+        $packAccount = $packAccountRepo->find($id);
+        $events = $eventRepo->findBy(['accoubt' => $packAccount->getUserId()]);
+
+        foreach ($events as $event){
+            $manager->remove($event);
+        }
+
+        $manager->remove($packAccount);
         $manager->flush();
 
         return $this->redirectToRoute("logged_profile");

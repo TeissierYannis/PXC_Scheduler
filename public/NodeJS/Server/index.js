@@ -36,7 +36,7 @@ http.get("https://scheduler-pmc.teissieryannis.com/api/events")
 
                         console.log(result, updateTime)
 
-                        //launch(new Date(updateTime), result.AccountLogin, result.AccountPassword)
+                        launch(new Date(updateTime), result.AccountLogin, result.AccountPassword)
 
                     })
             }

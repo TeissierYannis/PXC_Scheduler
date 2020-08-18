@@ -26,8 +26,6 @@ class ProfileController extends AbstractController
             'UserId' => $this->getUser()
             ]);
 
-        dump($packs);
-
         return $this->render('profile/index.html.twig', [
             'user' => $user,
             'packs' => $packs
