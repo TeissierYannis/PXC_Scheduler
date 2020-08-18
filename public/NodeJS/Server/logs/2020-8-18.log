@@ -1,0 +1,6 @@
+2020.08.18, 10:50:10.0571 UTC -> Get all events
+2020.08.18, 10:50:10.0835 UTC -> Event finded to be scheduled today
+2020.08.18, 10:50:10.0835 UTC -> Reach account infos
+2020.08.18, 10:50:11.0060 UTC -> Account info successfully reached
+2020.08.18, 10:50:11.0062 UTC -> Try to schedule event
+2020.08.18, 10:51:00.0007 UTC -> Starting scheduler function
