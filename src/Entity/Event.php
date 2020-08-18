@@ -11,7 +11,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @ORM\Entity(repositoryClass=EventRepository::class)*
  * @ApiResource(
  *     collectionOperations={"get"={"normalization_context"={"groups"="events:list"}}},
- *     itemOperations={"get"={"normalization_context"={"groups"="events:item"}}},
+ *     itemOperations={
+ *      "delete", "get"={"normalization_context"={"groups"="events:item"}}},
  *     paginationEnabled=false
  * )
  */

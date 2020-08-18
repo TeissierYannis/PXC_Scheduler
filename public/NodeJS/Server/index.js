@@ -21,6 +21,8 @@ http.get("https://scheduler-pmc.teissieryannis.com/api/events")
 
                 updateTime = entity.scheduler_datetime
 
+                console.log(entity)
+
                 console.log('Reach account infos')
 
                 http.get("https://scheduler-pmc.teissieryannis.com" + entity.account)
@@ -32,7 +34,9 @@ http.get("https://scheduler-pmc.teissieryannis.com/api/events")
 
                         console.log('Try to schedule event')
 
-                        launch(new Date(updateTime), result.AccountLogin, result.AccountPassword)
+                        console.log(result, updateTime)
+
+                        //launch(new Date(updateTime), result.AccountLogin, result.AccountPassword)
 
                     })
             }
