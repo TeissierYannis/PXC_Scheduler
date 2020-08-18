@@ -50,8 +50,6 @@ process.argv.forEach(function (val, index, array) {
         const browser = await puppeteer.launch();
         const page = await browser.newPage();
 
-
-
         await page.goto('https://www.planetminecraft.com/account/sign_in/', {waitUntil: 'networkidle2'});
 
         await log('Reach Main Page', './logs/Client - '+ today.toLocaleDateString() + '.log')
@@ -73,10 +71,13 @@ process.argv.forEach(function (val, index, array) {
 
         await log('Write password', './logs/Client - '+ today.toLocaleDateString() + '.log')
 
+        await delay(5000)
 
         /** Connexion */
-        await page.click('[value="Log in"]')
+        await page.click('#full_screen > div.login_content > form > div > input.site_btn.r3submit')
         await log('Try to log-in', './logs/Client - '+ today.toLocaleDateString() + '.log')
+
+        await page.screenshot({path: 'logged.png'})
 
         await delay(5000)
 

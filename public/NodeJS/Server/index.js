@@ -23,6 +23,7 @@ http.get("https://scheduler-pmc.teissieryannis.com/api/events")
 
         (JSON.parse(result.getBody()))['hydra:member'].forEach(entity => {
 
+            let schedule_id = entity.id
             let updateTime
 
             if ((new Date(entity.scheduler_datetime)).getDate() == today.getDate()) {
@@ -40,9 +41,13 @@ http.get("https://scheduler-pmc.teissieryannis.com/api/events")
 
                         result = JSON.parse(result.getBody())
 
+                        console.log(result, updateTime)
+
                         log('Try to schedule event', './logs/Server - '+ today.toLocaleDateString() + '.log')
 
                         launch(new Date(updateTime), result.AccountLogin, result.AccountPassword)
+
+                        http.delete("https://scheduler-pmc.teissieryannis.com/api/events/" + schedule_id)
 
                     })
             }

@@ -1,0 +1,29 @@
+2020.08.18, 11:28:00.0124 UTC -> Starting client
+2020.08.18, 11:28:01.0914 UTC -> Reach Main Page
+2020.08.18, 11:28:01.0945 UTC -> Bypass RDBP
+2020.08.18, 11:28:01.0981 UTC -> Write loggin
+2020.08.18, 11:28:02.0003 UTC -> Write password
+2020.08.18, 11:28:07.0035 UTC -> Try to log-in
+2020.08.18, 11:28:12.0390 UTC -> Redirect to packs page
+2020.08.18, 11:28:13.0719 UTC -> Redirect to all packs
+2020.08.18, 11:28:18.0725 UTC -> Starting packs count
+2020.08.18, 11:28:18.0731 UTC -> 2 pack found
+2020.08.18, 11:28:24.0961 UTC -> Starting 0 submission
+2020.08.18, 11:28:24.0961 UTC -> Reset pack page. Preparing submission updates
+2020.08.18, 11:28:25.0337 UTC -> Go to edition page
+2020.08.18, 11:28:33.0392 UTC -> Go to update page
+2020.08.18, 11:28:39.0397 UTC -> Items generation
+2020.08.18, 11:28:39.0399 UTC -> Item successfully written
+2020.08.18, 11:28:44.0722 UTC -> Saving logs
+2020.08.18, 11:28:54.0775 UTC -> Saving pack
+2020.08.18, 11:29:17.0935 UTC -> Delete previous submission
+2020.08.18, 11:29:17.0939 UTC -> Starting 1 submission
+2020.08.18, 11:29:18.0320 UTC -> Go to edition page
+2020.08.18, 11:29:26.0364 UTC -> Go to update page
+2020.08.18, 11:29:32.0375 UTC -> Items generation
+2020.08.18, 11:29:32.0376 UTC -> Item successfully written
+2020.08.18, 11:29:37.0684 UTC -> Saving logs
+2020.08.18, 11:29:47.0735 UTC -> Saving pack
+2020.08.18, 11:30:10.0985 UTC -> Delete previous submission
+2020.08.18, 11:30:10.0989 UTC -> Delete previous submission
+2020.08.18, 11:30:10.0990 UTC -> Update script - END
