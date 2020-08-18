@@ -38,7 +38,7 @@
                     <br>
                     {% for event in events %}
 
-                        {% if i == (event.schedulerDatetime | date("d")) %}
+                        {% if i == (event.schedulerDatetime | date("d")) and (date() | date('m')) == (event.schedulerDateTime('m'))   %}
                             <small class="text-muted">
                                 {{ event.account.AccountUsername }} {{ event.schedulerDateTime | date("h:m") }}
                             </small>
@@ -58,9 +58,12 @@
                             <span class="{% if i == response['current_day'] %}__current_day{% else %}__days_number{% endif %}">{{ i }}</span>
                         </a>
                         <br>
+
+                        <!-- and i == (event.schedulerDatetime | date("m")) -->
+                        <!-- ATTENTION LES EVENTS NE SONT PAS AU BON MOIS -->
                         {% for event in events %}
 
-                            {% if i == (event.schedulerDatetime | date("d")) %}
+                            {% if (i == (event.schedulerDatetime | date("d")) and (date() | date('m')) == (event.schedulerDateTime('m'))  %}
                                 <small class="text-muted">
                                     {{ event.account.AccountUsername }} {{ event.schedulerDateTime | date("h:m") }}
                                 </small>
