@@ -50,7 +50,7 @@ process.argv.forEach(function (val, index, array) {
         const browser = await puppeteer.launch();
         const page = await browser.newPage();
 
-        await page.goto('https://www.planetminecraft.com/account/sign_in/', {waitUntil: 'networkidle2'});
+        await page.goto('...', {waitUntil: 'networkidle2'});
 
         await log('Reach Main Page', './logs/Client - '+ today.toLocaleDateString() + '.log')
 
